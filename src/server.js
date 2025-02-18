@@ -10,6 +10,8 @@ require("dotenv").config();
 
 
 let app = express();
+const trackPageView = require('./middleware/accessLogger');
+
 
 // Configure CORS
 app.use(cors());
@@ -19,6 +21,7 @@ app.use(cors());
 // Use express's built-in JSON body parser
 app.use(express.json()); // For parsing application/json
 app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
+app.use(trackPageView);
 
 viewEngine(app);
 initWebRoutes(app);
