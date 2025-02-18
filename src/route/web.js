@@ -1,6 +1,8 @@
 import express from "express";
 import userController from '../controllers/userController';
 import productController from '../controllers/productController';
+import categoryController from '../controllers/categoryController';
+
 import multer from "multer";
 
 
@@ -24,6 +26,19 @@ let initWebRoutes = (app) => {
         productController.createProduct
     );
     router.get("/api/get-all-products", productController.getAllProducts);
+    router.get("/api/get-detail-product/:id", productController.getDetailProduct);
+    router.delete("/api/delete-product/:id", productController.deleteProduct);
+    router.put(
+        "/api/update-product",
+        upload.single("imageFile"),
+        productController.updateProduct);
+
+    // Category API
+    router.post("/api/create-category", categoryController.createCategory);
+    router.get("/api/get-all-categories", categoryController.getAllCategories);
+    router.put("/api/update-category", categoryController.updateCategory);
+    router.delete("/api/delete-category/:categoryId", categoryController.deleteCategory);
+
     return app.use("/", router);
 }
 
